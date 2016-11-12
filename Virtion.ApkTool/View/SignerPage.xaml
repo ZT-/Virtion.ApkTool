@@ -1,0 +1,66 @@
+﻿<UserControl x:Class="Virtion.ApkTool.View.SignerPage"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+            mc:Ignorable="d" 
+            Background="White"
+            d:DesignHeight="300" d:DesignWidth="400"
+            Loaded="Page_Loaded"
+            >
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="100"/>
+            <RowDefinition Height="1*"/>
+        </Grid.RowDefinitions>
+        <TextBlock
+                        Text="拖入APK文件，将识别并自动开始签名（支持多个文件）"
+                        VerticalAlignment="Center"
+                        />
+        <ScrollViewer 
+                        Grid.Row="1"
+                        HorizontalScrollBarVisibility="Auto"
+                        >
+            <TextBox x:Name="TB_ApkPath" 
+                            PreviewDragEnter="TB_ApkPath_PreviewDragEnter"
+                            PreviewDragOver="TB_ApkPath_PreviewDragEnter"
+                            PreviewDrop="TB_ApkPath_PreviewDrop" />
+        </ScrollViewer>
+        <Expander x:Name="E_SignerOption"
+                        Header="更多选项（展开将取消自动生成）"
+                        Grid.Row="2" 
+                        IsEnabledChanged="E_SignerOption_IsEnabledChanged"  
+                        >
+            <Grid Height="100">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="3*"/>
+                    <ColumnDefinition Width="1*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <TextBox x:Name="TB_Output"
+                                Grid.Column="0" 
+                                Height="35"
+                                />
+                <Button  x:Name="B_OpenFolder"
+                                Grid.Column="1" 
+                                Content="选择输出文件夹"
+                                Click="B_OpenFolder_Click"
+                                 Height="30"
+                                 Width="80"
+                                />
+                <Button  x:Name="TB_SignerMake"
+                                Grid.Row="1"
+                                 Grid.ColumnSpan="2"
+                                 Content="生成"
+                                 Height="30"
+                                 Width="120"
+                                 Click="TB_SignerMake_Click"
+                                 />
+            </Grid>
+        </Expander>
+    </Grid>
+</UserControl>
