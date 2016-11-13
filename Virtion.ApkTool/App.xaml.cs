@@ -1,36 +1,48 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Linq;
+using System.Diagnostics;
 using System.Windows;
 
 namespace Virtion.ApkTool
 {
-
     public partial class App : Application
     {
+        public static Action<string> LoggerCallBack;
+
         public static string CurrentPath
         {
             get
             {
-                return System.Environment.CurrentDirectory;
+                return System.AppDomain.CurrentDomain.BaseDirectory;
             }
         }
 
-        public static new MainWindow MainWindow
+        public static string CurrentExe
         {
             get
             {
-              return   App.Current.MainWindow as MainWindow;
+                return Process.GetCurrentProcess().MainModule.FileName;
+            }
+        }
+
+        public new static MainWindow MainWindow
+        {
+            get
+            {
+                return App.Current.MainWindow as MainWindow;
             }
         }
 
         public static void Log(string word)
         {
-            MainWindow.Log(word);
+            if (App.Current != null)
+            {
+                MainWindow.Log(word);
+            }
+            else if (LoggerCallBack != null)
+            {
+                LoggerCallBack(word);
+            }
         }
 
     }
-
 }

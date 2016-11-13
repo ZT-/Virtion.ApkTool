@@ -9,30 +9,31 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
-using Virtion.ApkTool.Executor;
 
-namespace Virtion.ApkTool
+namespace Virtion.ApkTool.View
 {
-    public partial class MainWindow : Window
+    public partial class LoadingWindow : Window
     {
-        public MainWindow()
+        public LoadingWindow()
         {
             InitializeComponent();
         }
 
-
         public void Log(string word)
         {
-            this.E_Console.IsExpanded = true;
-            this.TB_Console.Text = word + "\n";
+            this.Dispatcher.BeginInvoke(new Action(() =>
+            {
+                this.TB_Tip.Text = word + "\n";
+            }));
         }
 
-        private void ButtonBase_OnClick(object sender, RoutedEventArgs e)
+        internal void FinishCallBack()
         {
-            RegHelper.RegisterApkSigner();
-
+            this.Dispatcher.BeginInvoke(new Action(() =>
+            {
+                this.Close();
+            }));
         }
     }
 }

@@ -11,28 +11,17 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using Virtion.ApkTool.Executor;
 
-namespace Virtion.ApkTool
+namespace Virtion.ApkTool.View
 {
-    public partial class MainWindow : Window
+    /// <summary>
+    /// Base64Page.xaml 的交互逻辑
+    /// </summary>
+    public partial class Base64Page : UserControl
     {
-        public MainWindow()
+        public Base64Page()
         {
             InitializeComponent();
-        }
-
-
-        public void Log(string word)
-        {
-            this.E_Console.IsExpanded = true;
-            this.TB_Console.Text = word + "\n";
-        }
-
-        private void ButtonBase_OnClick(object sender, RoutedEventArgs e)
-        {
-            RegHelper.RegisterApkSigner();
-
         }
     }
 }

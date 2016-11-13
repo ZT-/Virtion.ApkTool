@@ -12,8 +12,8 @@ namespace Virtion.ApkTool.Executor
     public class ApkSigner : CommondExecutor
     {
         public static List<string> ApkList = new List<string>();
-
         public static bool IsAutoMake = true;
+        private string apkPath;
 
         public void AutoSignAll()
         {
@@ -23,7 +23,8 @@ namespace Virtion.ApkTool.Executor
                 {
                     try
                     {
-                        Execute(item);
+                        this.apkPath = item;
+                        this.Execute();
                     }
                     catch (Exception ex)
                     {
@@ -39,7 +40,8 @@ namespace Virtion.ApkTool.Executor
             {
                 try
                 {
-                    Execute(item);
+                    this.apkPath = item;
+                    this.Execute();
                 }
                 catch (Exception ex)
                 {
@@ -49,14 +51,34 @@ namespace Virtion.ApkTool.Executor
             }
         }
 
-        public void Execute(string fileFullPath)
+        private String GetSourceApkSize(string srcApk)
         {
+            System.IO.FileInfo file = new System.IO.FileInfo(srcApk);
+            return file.Length.ToString();
+        }
+
+        private String GetDestApkSize(string destApk)
+        {
+            System.IO.FileInfo file = new System.IO.FileInfo(destApk);
+            return file.Length.ToString();
+        }
+
+
+        public void SetApkPath(string fileFullPath)
+        {
+            this.apkPath = fileFullPath;
+        }
+
+        public override bool Execute()
+        {
+            String fileFullPath = this.apkPath;
+
             App.Log("signing apk :" + fileFullPath);
 
             if (System.IO.File.Exists(fileFullPath) == false)
             {
                 MessageBox.Show("文件路径不存在");
-                return;
+                return false;
             }
 
             FileInfo fileInfo = new FileInfo(fileFullPath);
@@ -72,7 +94,7 @@ namespace Virtion.ApkTool.Executor
                 if (System.IO.Directory.Exists(OutputFolder) == false)
                 {
                     MessageBox.Show("文件路径不存在" + OutputFolder);
-                    return;
+                    return false;
                 }
                 apkDirectory = OutputFolder;
             }
@@ -89,9 +111,9 @@ namespace Virtion.ApkTool.Executor
             string[] cmd = new string[]
 			{
 				"-jar",
-                App.CurrentPath+  "\\lib\\signapk.dll",
-				App.CurrentPath+ "\\key\\publickey.x509.pem",
-				App.CurrentPath+ "\\key\\privatekey.pk8",
+                App.CurrentPath+  "lib\\signapk.dll",
+				App.CurrentPath+ "key\\publickey.x509.pem",
+				App.CurrentPath+ "key\\privatekey.pk8",
 				fileFullPath,
                 outputApk
 			};
@@ -103,7 +125,10 @@ namespace Virtion.ApkTool.Executor
                     int num = Starter.StartMain(cmd);
                     if (num == 0)
                     {
-                        MessageBox.Show("签名Apk成功");
+                        if (this.FinishCallBack!=null)
+                        {
+                            this.FinishCallBack();
+                        }
                     }
                 }
                 catch (Exception ex)
@@ -112,6 +137,9 @@ namespace Virtion.ApkTool.Executor
                 }
             });
             thread.Start();
+
+            return true;
         }
+
     }
 }

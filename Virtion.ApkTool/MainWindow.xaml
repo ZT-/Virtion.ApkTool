@@ -1,4 +1,5 @@
-﻿<Window xmlns:View="clr-namespace:Virtion.ApkTool.View"  x:Class="Virtion.ApkTool.MainWindow"
+﻿<Window xmlns:View="clr-namespace:Virtion.ApkTool.View"  
+        x:Class="Virtion.ApkTool.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Virtion.ApkTool" 
@@ -11,14 +12,26 @@
         </Grid.RowDefinitions>
 
         <TabControl Grid.Row="0">
-            <TabItem Header="APK签名">
-            </TabItem>
-            <TabItem Header="Dex解码">
+            <TabItem Header="APK Sign">
                 <View:SignerPage />
             </TabItem>
-        </TabControl>
 
-        <View:SignerPage />
+            <TabItem Header="Register">
+                <Button Content="register .apk menu"
+                    Click="ButtonBase_OnClick"
+                    
+                    />
+            </TabItem>
+
+            <TabItem Header="Dex To Jar"
+                     Visibility="Hidden"
+                     >
+            </TabItem>
+            <TabItem Header="Decode Dex base64"
+                      Visibility="Hidden"
+                     >
+            </TabItem>
+        </TabControl>
 
         <Expander x:Name="E_Console"
             Header="输出"

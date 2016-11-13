@@ -34,6 +34,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>Virtion.ApkTool.MainApp</StartupObject>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="IKVM.OpenJDK.Charsets, Version=7.0.4335.0, Culture=neutral, PublicKeyToken=13235d27fcbfff58, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -85,10 +88,22 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Executor\Executor.cs" />
+    <Compile Include="MainApp.cs" />
+    <Compile Include="RegHelper.cs" />
+    <Compile Include="View\Base64Page.xaml.cs">
+      <DependentUpon>Base64Page.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\LoadingWindow.xaml.cs">
+      <DependentUpon>LoadingWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ResFixPage.xaml.cs">
+      <DependentUpon>ResFixPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\SignerPage.xaml.cs">
       <DependentUpon>SignerPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Virtion.Util\FileManager.cs" />
+    <Compile Include="Virtion.Util\RegistryKeyHelper.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -104,6 +119,18 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="View\Base64Page.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\LoadingWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ResFixPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\SignerPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

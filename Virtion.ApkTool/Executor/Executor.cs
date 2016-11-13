@@ -13,6 +13,9 @@ namespace Virtion.ApkTool.Executor
             set;
         }
 
+        public Action FinishCallBack;
+
+        public abstract bool Execute();
 
     }
 }
